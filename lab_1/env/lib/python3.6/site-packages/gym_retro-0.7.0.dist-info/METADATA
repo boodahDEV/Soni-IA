@@ -1,0 +1,21 @@
+Metadata-Version: 2.1
+Name: gym-retro
+Version: 0.7.0
+Summary: UNKNOWN
+Home-page: https://github.com/openai/retro
+Author: OpenAI
+Author-email: csh@openai.com
+License: MIT
+Platform: UNKNOWN
+Requires-Python: >=3.5.0
+Requires-Dist: gym
+Requires-Dist: pyglet (==1.*,>=1.3.2)
+Provides-Extra: docs
+Requires-Dist: sphinx; extra == 'docs'
+Requires-Dist: sphinx-rtd-theme; extra == 'docs'
+Requires-Dist: sphinx-autobuild; extra == 'docs'
+Requires-Dist: m2r; extra == 'docs'
+
+UNKNOWN
+
+
