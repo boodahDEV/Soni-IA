@@ -1,13 +1,13 @@
 import retro
+#from Controler_actions import action_control
 env = retro.make('SonicTheHedgehog-Genesis', 'GreenHillZone.Act1')
 
 env.reset()
 done = False
 while not done:
     env.render()
-
     action = env.action_space.sample()
+    action = [0,0,0,0,0,0,0,1,0,0,0,0]
     ob, rew, done, info = env.step(action)
-   # test = env.controller_bj_action().
-   # print("Action ", action, "Reward ", rew) 
-print(info)
+    print("Action: ",info) 
+#print("que haces:", info)
