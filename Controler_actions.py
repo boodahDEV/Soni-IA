@@ -1,45 +1,60 @@
-from tkinter import *
-import retro
-#from Controler_actions import action_control
-env = retro.make('SonicTheHedgehog-Genesis', 'GreenHillZone.Act1')
-root = Tk()
+import pygame
+from pygame.locals import *
 
-action = env.action_space.sample()
-env.reset()
-
-def action_control(action):
-    
-    def keyup(e):
-        if e.keysym == 'Escape': 
-            root.quit()
-            #print("up", e.char)
-        if e.keysym == 'Right': 
-            action = [0,0,0,0,0,0,0,1,0,0,0,0]
-            print("Derecha ", e.char)
-            return action
-        if e.keysym == 'Left': 
-            print("Izquierda", e.char)
-        if e.keysym == 'Up': 
-            print("Arriba", e.char)
-        if e.keysym == 'Down': 
-            print("Abajo", e.char)
-        if e.keysym == 'Shift_L': 
-            print("Shift_L")
-        while e.keysym == 'Shift_L' and e.keysym == 'Right':
-            print("Right")
-
-    root.title("Controler_actions_button_bj")
-    fx = Frame(root, width=0, height=0)
-    fx.pack() #Empaqueta todo y lanza
-    fx.focus_set() #seteo el foco a la ventana(mucho mejor)
-    root.mainloop()
-    done = False 
-    while not done:
-        fx.bind_all('<Key>', keyup) #llamada de los botones
-   
-    ob, rew, done, info = env.step(action)
-
-action_control(action) ## llama el controlador
-
-
-
+def terminar():
+  pygame.quit()
+  sys.exit()
+def esperarTeclaJugador():
+  while True:
+    for evento in pygame.event.get():
+      if evento.type == QUIT:
+        terminar()
+      if evento.type == KEYDOWN:
+        if evento.key == K_ESCAPE: # Quita al presionar ESCAPE
+          terminar()
+        return
+while True:
+  while True: # el ciclo del juego se mantiene mientras se este jugando
+    for evento in pygame.event.get():
+      if evento.type == QUIT:
+        terminar()
+      if evento.type == KEYDOWN:
+        if evento.key == ord('z'):
+          trucoReversa = True
+        if evento.key == ord('x'):
+          trucoLento = True
+        if evento.key == K_LEFT or evento.key == ord('a'):
+          moverDerecha = False
+          moverIzquierda = True
+        if evento.key == K_RIGHT or evento.key == ord('d'):
+          moverIzquierda = False
+          moverDerecha = True
+        if evento.key == K_UP or evento.key == ord('w'):
+          moverAbajo = False
+          moverArriba = True
+        if evento.key == K_DOWN or evento.key == ord('s'):
+          moverArriba = False
+          moverAbajo = True
+      if evento.type == KEYUP:
+       if evento.key == ord('z'):
+          trucoReversa = False
+          puntaje = 0
+       if evento.key == ord('x'):
+          trucoLento = False
+          puntaje = 0
+       if evento.key == K_ESCAPE:
+          terminar()
+       if evento.key == K_LEFT or evento.key == ord('a'):
+         moverIzquierda = False
+       if evento.key == K_RIGHT or evento.key == ord('d'):
+         moverDerecha = False
+       if evento.key == K_UP or evento.key == ord('w'):
+         moverArriba = False
+       if evento.key == K_DOWN or evento.key == ord('s'):
+         moverAbajo = False
+    # Mueve el jugador.
+    if moverIzquierda > 0:
+      ap = [0,0,0,0,0,0,1,0,0,0,0,0]
+    if moverDerecha > 0 and moverIzquierda == 0:
+      ap = [0,0,0,0,0,0,0,1,0,0,0,0]
+pygame.display.update()
