@@ -1,23 +1,44 @@
 import retro
+import pygame
 import os
-#from Controler_actions import action_control
-env = retro.make('SonicTheHedgehog-Genesis', 'GreenHillZone.Act1')
+from pygame.locals import *
 
-f = open ('data.csv','w')
+
+video_size = 1, 1
+env = retro.make('SonicTheHedgehog-Genesis', 'GreenHillZone.Act1')
+screen = pygame.display.set_mode(video_size)
 
 env.reset()
-done = False
-while not done:
-    env.render()
-    action = env.action_space.sample()
-    action = [0,0,0,0,0,0,0,1,0,0,0,0]
-    ob, rew, done, info = env.step(action)
-    f.write("\n"+str(info))
-    #ob es la imagen de la pantalla en el momento de la accion
-    #done es para saber suantas vidas tiene o que, osea si muere done == true se cierra el bucle!
-    #info es un diccionario de todos los valores establecidos en los datos correctos.
-    print("Image: ",ob.shape,"\tReward: ",rew, "\tDone: ", done, "\t actions: ", action) 
-    
 
-f.close()
-#print("que haces:", info)
+done = False
+def key_action():
+    keys=pygame.key.get_pressed()
+    key = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    
+    if keys[K_LEFT]:
+        key[6] = 1
+    if keys[K_UP]:
+        key[0] = 1
+    if keys[K_RIGHT]:
+        key[7] = 1
+    if keys[K_DOWN]:
+        key[5] = 1
+    return key
+
+
+archivo = open("data_game.csv", "a")
+while not done:
+    img = env.render()
+    screen = pygame.display.set_mode(video_size)
+    pygame.display.set_caption(str(img))
+    #pygame.display.update()
+    action = key_action()
+    ob, rew, done, info = env.step(action)
+    archivo.write(str(info))
+    archivo.write(";")
+    archivo.write(str(action))
+    archivo.write(";")
+    archivo.write(str(rew))
+    archivo.write(";") #columnas
+    archivo.write("\n")
+    #print("Action ", action, "Reward ", rew)
