@@ -22,7 +22,20 @@
     ``` console
        python sonic.py
    ```
-## Si sonic se mueve, entonces ya funciona.
+* Si sonic se mueve, entonces ya funciona.
 
+## Poniendo en marcha el control
+Simplemente copia el sonic.py de este repositorio a la carpeta creada y coloca lo siguiente por terminal:
+   ```console
+      source env/bin/activate
+      python sonic.py
+   ```
+### Los controles basicos son:
+* flecha_arriba = salta
+* flecha_abajo = agachar
+* flecha_izquierda = camina a izquierda
+* flecha_derecha = camina a derecha
 
-#### 🤓 Este desarrollo mas que nada es con fines educativos, en el cual esta basado en crear un controlador que me permita controlar a Sonic por medio del teclado.
+#### Se genera un archivo Data_game.csv para proximas versiones y su control autonomo con NEAT.
+<br><br>
+#### 🤓 Este desarrollo mas que nada es con fines educativos.
