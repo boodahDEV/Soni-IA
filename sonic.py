@@ -13,6 +13,7 @@ win = pygame.display.set_mode((800,600))
 
 
 done = False
+info = {'level_end_bonus': 0}
 def key_action():
     keys=pygame.key.get_pressed()
     key = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -28,7 +29,7 @@ def key_action():
 
 
 archivo = open("data_game.csv", "a")
-while not done:
+while info['level_end_bonus'] != 1:
     #env.render()
     
     #screen = pygame.display.set_mode(video_size)
@@ -55,5 +56,6 @@ while not done:
     archivo.write(";") #columnas
     archivo.write("\n")
 
-   # print("Action ", action, "Reward ", rew)
-clock.tick(500)
+    print("Info:  ", info)
+    clock.tick(500)
+print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSonic is dead...\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
